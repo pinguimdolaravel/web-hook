@@ -10,6 +10,10 @@ use App\Models\WebhookRequest;
 new class extends Component {
     public ?WebhookRequest $webhookRequest = null;
 
+    protected $listeners = [
+        'echo:webhooks,WebhookCreatedEvent' => '$refresh'
+    ];
+
     public function createNewWebhook(): void
     {
         $url = Url::query()->create([
@@ -97,7 +101,7 @@ new class extends Component {
                 <div>{{ $webhookRequest->method }}</div>
 
                 <div class="bg-slate-800 opacity-90 rounded-lg p-2 text-base mt-4 font-bold">
-                    From IP {{ $webhookRequest->ip }} at {{ $webhookRequest->created_at->format('d, M h:i:s') }}
+                    From IP < algum-ip > at {{ $webhookRequest->created_at->format('d, M h:i:s') }}
                 </div>
 
                 <div class="bg-slate-800 opacity-90 rounded-lg p-2 text-base mt-4 divide-y divide-amber-50 divide-opacity-20">

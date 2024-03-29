@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\WebhookCreatedEvent;
 use App\Models\Url;
 use App\Models\WebhookRequest;
 
@@ -19,6 +20,8 @@ class HandleRequestsController extends Controller
             ->create(
                 compact('method', 'headers', 'ip', 'body')
             );
+
+        WebhookCreatedEvent::dispatch();
 
         return response()->noContent();
     }
